@@ -1,0 +1,74 @@
+name: 'Terraform'
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Select the Terraform action to execute'
+        type: choice
+        options:
+          - init
+          - validate
+          - plan
+          - apply
+          - destroy
+        required: true
+        default: 'plan'
+      tfvars_file:
+        description: 'Path to the .tfvars file'
+        required: true
+        default: 'terraform.tfvars'
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+permissions:
+  contents: read
+
+jobs:
+  Terraform-Action:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.10.1
+
+      - name: Terraform Init
+        if: ${{ github.event.inputs.action == 'init' }}
+        working-directory: microservice_mern_stack_eks_infrastructure/eks_cluster
+        run: terraform init
+
+      - name: Terraform Validate
+        if: ${{ github.event.inputs.action == 'validate' }}
+        working-directory: microservice_mern_stack_eks_infrastructure/eks_cluster
+        run: |
+          terraform init
+          terraform validate
+
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'plan' }}
+        working-directory: microservice_mern_stack_eks_infrastructure/eks_cluster
+        run: |
+          terraform init
+          terraform plan -var-file=${{ github.event.inputs.tfvars_file }} -input=false
+
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'apply' }}
+        working-directory: microservice_mern_stack_eks_infrastructure/eks_cluster
+        run: |
+          terraform init
+          terraform apply -auto-approve -var-file=${{ github.event.inputs.tfvars_file }} -input=false
+
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        working-directory: microservice_mern_stack_eks_infrastructure/eks_cluster
+        run: |
+          terraform init
+          terraform destroy -auto-approve -var-file=${{ github.event.inputs.tfvars_file }} -input=false
