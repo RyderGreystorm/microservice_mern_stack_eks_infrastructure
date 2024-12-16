@@ -48,15 +48,16 @@ docker_installation() {
 terraform_installation() {
     echo "Installing Terraform..."
     sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+    sudo apt install wget -y
     wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
     echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-    sudo apt-get update && sudo apt-get install -y terraform
+    sudo apt-get update && sudo apt install terraform -y
     terraform -version && echo "Terraform installed successfully."
 }
 
 aws_cli_installation() {
     echo "Installing AWS CLI..."
-    sudo apt-get update && sudo apt-get install -y unzip
+    sudo apt-get update && sudo apt install unzip curl -y
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
     sudo ./aws/install
