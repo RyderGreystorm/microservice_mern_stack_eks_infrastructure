@@ -12,7 +12,7 @@ This project provisions an EKS cluster using Terraform and automates the deploym
 
 ## Directory Structure  
 ```plaintext
-C:/Users/biekr/OneDrive/Desktop/projects/microservice_mern_stack_eks_infrastructure/
+microservice_mern_stack_eks_infrastructure/
 |-- Jenkinsfile                      # Jenkins pipeline configuration for CI/CD.
 |-- bastion_n_jenkins_scripts/       # Scripts for setting up Bastion host and Jenkins.
 |   |-- README.md
