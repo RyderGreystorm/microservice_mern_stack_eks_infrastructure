@@ -35,7 +35,7 @@ microservice_mern_stack_eks_infrastructure/
     |-- subnets.tf                   # Subnet configurations.
     |-- variables.tf                 # Module-specific variables.
     `-- vpc.tf                       # VPC configuration.
-
+```
 ## Requirements  
 To deploy the infrastructure, you need the following tools installed:  
 - **AWS CLI**  
