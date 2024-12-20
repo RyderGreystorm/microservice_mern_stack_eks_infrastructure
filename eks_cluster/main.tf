@@ -24,11 +24,5 @@ module "esk" {
   aws_availability_zones  = var.aws_availability_zones
   max_unavailable         = var.max_unavailable
   priv-sub-cdir-block     = var.priv-sub-cdir-block
-
-  #Bastion Host
-  bastion_instance_type   = var.bastion_instance_type
-  bastion_instance_volume = var.bastion_instance_volume
-  pub_key                 = var.pub_key
-  priv_key                = var.priv_key
 }
 

@@ -22,7 +22,7 @@ resource "aws_security_group" "eks-cluster-sg" {
     from_port   = 443 
     to_port     = 443
     protocol    = "tcp"
-    security_groups = [ aws_security_group.bastion-sg.id ]
+    cidr_blocks = ["0.0.0.0/0"] #After launching infra, go to this sg and change it to allow ingress from your bastion's sg or bastion's public ip
   }
 
   egress {
@@ -34,31 +34,5 @@ resource "aws_security_group" "eks-cluster-sg" {
 
   tags = {
     Name = var.cluster-sg-name
-  }
-}
-
-#BASTION HOST SECURITY GROUP
-resource "aws_security_group" "bastion-sg" {
-  name        = "Bastion_Host"
-  description = "Server as the single source of entry to the private subnet"
-
-  vpc_id = aws_vpc.projectX-vpc.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Use your trusted IP here, this is a security risk, don't allow it like this. It should be your IP Address
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "Bastion_Host"
   }
 }

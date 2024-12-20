@@ -10,11 +10,6 @@ cluster-sg-name        = "projectX-cluster-sg"
 REGION                     = "us-east-1"
 terraform_required_version = ">= 1.0"
 aws_version                = "~> 5.16.0"
-bastion_instance_type      = "t2.medium"
-bastion_instance_volume    = 40
-#BASTION HOST
-pub_key  = "../keys/bastion.pub"
-priv_key = "../keys/bastion"
 #IAM AND EKS
 is_eks_role_enabled     = true
 is_eks_cluster_enabled  = true

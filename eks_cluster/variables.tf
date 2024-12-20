@@ -124,22 +124,3 @@ variable "addons" {
     version = string
   }))
 }
-
-variable "pub_key" {
-  description = "bastion host public key"
-  type        = string
-}
-
-variable "priv_key" {
-  description = "bastion host private key"
-  type        = string
-}
-
-variable "bastion_instance_type" {
-  description = "bastion instance type"
-  type        = string
-}
-variable "bastion_instance_volume" {
-  description = "bastion instance volume"
-  type        = number
-}
