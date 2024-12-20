@@ -16,7 +16,7 @@ set -e  # Exit immediately if a command exits with a non-zero status.
 
 aws_cli_installation() {
     echo "Installing AWS CLI..."
-    sudo apt-get update && sudo apt-get install -y unzip, curl
+    sudo apt-get update && sudo apt-get install unzip curl -y
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
     sudo ./aws/install
@@ -48,7 +48,7 @@ eksctl_installation() {
     curl -sL "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" -o eksctl.tar.gz
     tar -xzf eksctl.tar.gz
     sudo mv eksctl /usr/local/bin
-    eksctl version
+    eksctl version   
     eksctl completion bash | sudo tee /etc/bash_completion.d/eksctl > /dev/null
     source /etc/bash_completion
 }
