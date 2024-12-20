@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "eks_oidc_assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "${replace(aws_iam_openid_connect_provider.eks-oidc.url, "https://", "")}:sub"
-      values   = ["system:serviceaccount:default:projectX"]
+      values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
     }
 
     principals {
